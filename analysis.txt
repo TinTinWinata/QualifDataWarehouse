@@ -1,0 +1,116 @@
+Measurement
+===========
+1. Sales Transaction
+	-> Total Sales Earning = SUM(Quantity * MedicineSellingPrice)
+	-> Total Medicine Sold = SUM(Quantity)
+2. Purchase Transaction
+	-> Total Purchase Cost = SUM(Quantity * MedicineBuyingPrice)
+	-> Total Medicine Purchased = SUM(Quantity)
+3. Subscription Transaction
+	-> Total Subscription Earning = SUM(BenefitPrice)
+	-> Number Of Subscriber	= COUNT(CustomerID)
+4. Service Transaction
+	-> Total Service Earning = SUM(Quantity * TreatmentPrice)
+	-> Number Of Doctor = COUNT(DoctorID)
+
+Dimension
+=========
+MedicineDimension
+- MedicineCode
+- MedicineID
+- MedicineName -> Need medicine name for knowing what type of the medicine
+- MedicineSellingPrice
+- MedicineBuyingPrice
+- MedicineExpiredDate
+
+DoctorDimension
+- DoctorCode
+- DoctorID
+- DoctorName -> Need doctor name for knows who the doctor is
+- DoctorDOB
+- DoctorAddress -> Changing
+- DoctorSalary -> Historical
+- ValidFrom
+- ValidTo
+
+StaffDimension
+- StaffCode
+- StaffID
+- StaffName ->  Need staff name for knows who the staff is
+- StaffDOB
+- StaffSalary -> Historical
+- StaffAddress -> Changing
+- ValidFrom
+- ValidTo
+
+CustomerDimension
+- CustomerCode
+- CustomerID
+- CustomerName ->  Need customer name for knows who the customer is
+- CustomerAddress -> Changing
+- CustomerGender -> Derived (Male -> M, Female -> F)
+
+BenefitDimension
+- BenefitCode
+- BenefitID
+- BenefitName ->  Need benefit name for knows what  benefit type is
+- BenefitPrice -> Historical
+- ValidFrom
+- ValidTo
+
+TreatmentDimension
+- TreatmentCode
+- TreatmentID
+- TreatmentName  ->  Need treatment name for knows what type treatment is
+- TreatmentPrice -> Historical
+- ValidFrom
+- ValidTo
+
+DistributorDimension
+- DistributorCode
+- DistributorID
+- DistributorName -> Need distributor name for knows what type treatment is
+- DistributorAddress -> Changing
+- DistributorPhone -> Changing
+
+TimeDimension
+- TimeCode -> PK
+- Date
+- Day
+- Month
+- Quarter
+- Year
+
+Fact
+====
+SalesFact
+- MedicineCode
+- StaffCode
+- CustomerCode
+- TimeCode
+- Total Sales Earning = SUM(Quantity * MedicineSellingPrice)
+- Total Medicine Sold = SUM(Quantity)
+
+PurchaseFact
+- MedicineCode
+- StaffCode
+- DistributorCode
+- TimeCode
+- Total Purchase Cost = SUM(Quantity * MedicineBuyingPrice)
+- Total Medicine Purchased = SUM(Quantity)
+
+SubscriptionFact
+- StaffCode
+- CustomerCode
+- BenefitCode
+- TimeCode
+- Total Subscription Earning = SUM(BenefitPrice)
+- Number Of Subscriber	= COUNT(CustomerID)
+
+ServiceFact
+- CustomerCode
+- TreatmentCode
+- DoctorCode
+- TimeCode
+- Total Service Earning = SUM(Quantity * TreatmentPrice)
+- Number Of Doctor = COUNT(DoctorID)
